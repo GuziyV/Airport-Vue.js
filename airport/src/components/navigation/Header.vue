@@ -1,9 +1,15 @@
 <template>
   <nav class="Header navbar navbar-light bg-light">
-    <div>
-      <div v-if="isLoggedIn">
+    <div v-if="isLoggedIn">
+      <div>
         <router-link class="nav-link" to="/Crews">
           Crews
+        </router-link>
+        <router-link class="nav-link" to="/Flights">
+          Flights
+        </router-link>
+        <router-link class="nav-link" to="/Planes">
+          Planes
         </router-link>
       </div>
     </div>
