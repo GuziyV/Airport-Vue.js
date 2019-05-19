@@ -6,6 +6,7 @@ import SignUp from '@/components/SignUp';
 import Crews from '@/components/Crews';
 import Flights from '@/components/Flights';
 import Departures from '@/components/Departures';
+import BuyTickets from '@/components/BuyTickets';
 import Planes from '@/components/Planes';
 import store from '../store/index';
 
@@ -49,6 +50,11 @@ const router = new VueRouter({
           name: 'departures',
           component: Departures,
         },
+        {
+          path: 'BuyTickets',
+          name: 'buyTickets',
+          component: BuyTickets,
+        },
       ],
     },
   ],
@@ -56,12 +62,20 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (store.state.user.isLoggedIn) {
-    if (to.name === 'signin' || to.name === 'signup') {
-      next('/crews');
+    if (store.state.user.currentUser.role === 'User' && to.name !== 'buyTickets') {
+      console.log(to.name);
+      next('/buyTickets');
+    } else if (to.name === 'signin' || to.name === 'signup') {
+      console.log(store.state.user.role);
+      if (store.store.state.user.currentUser.role === 'User') {
+        next('/buyTickets');
+      } else {
+        next('/crews');
+      }
     } else {
       next();
     }
-  } else if (to.name !== 'signin') {
+  } else if (to.name !== 'signin' && to.name !== 'signup') {
     next('/signIn');
   } else {
     next();

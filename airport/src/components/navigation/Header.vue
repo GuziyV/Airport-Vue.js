@@ -1,7 +1,7 @@
 <template>
   <nav class="Header navbar navbar-light bg-light">
     <div v-if="isLoggedIn">
-      <div>
+      <div v-if="currentUser.role === 'Admin'">
         <router-link class="nav-link" to="/Crews">
           Crews
         </router-link>
@@ -11,7 +11,15 @@
         <router-link class="nav-link" to="/Planes">
           Planes
         </router-link>
+        <router-link class="nav-link" to="/Departures">
+          Departures
+        </router-link>
       </div>
+    </div>
+    <div v-else>
+    <router-link to="/signin">
+          Lviv airport
+        </router-link>
     </div>
     <div>
       <div v-if="!isLoggedIn">
@@ -23,9 +31,6 @@
         </router-link>
       </div>
       <div v-else>
-        <router-link v-if="currentUser && isManager" class="nav-link" to="/admin">
-          Admin Tools
-        </router-link>
         <router-link class="btn btn-link" to="/profile">{{ currentUser.login }}</router-link> |
         <a href="#" class="btn btn-link-danger" v-on:click="logout">Logout</a>
       </div>

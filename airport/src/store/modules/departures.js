@@ -19,6 +19,12 @@ const actions = {
       commit('setDepartures', departures);
     });
   },
+  addDeparture({ commit }, crew) {
+    axios.post('/departures', crew).then(() => {
+      commit('addDeparture', crew);
+      Vue.$snotify.success('departure was created');
+    });
+  },
 };
 
 // mutations
@@ -30,22 +36,6 @@ const mutations = {
   addDeparture(st, departure) {
     // eslint-disable-next-line no-param-reassign
     st.departures.push(departure);
-  },
-  setStewardesses(st, stewardesses) {
-    // eslint-disable-next-line no-param-reassign
-    st.stewardesses = stewardesses;
-  },
-  addStewardess(st, stewardess) {
-    // eslint-disable-next-line no-param-reassign
-    st.departures.push(stewardess);
-  },
-  setPilots(st, pilots) {
-    // eslint-disable-next-line no-param-reassign
-    st.pilots = pilots;
-  },
-  addPilot(st, pilot) {
-    // eslint-disable-next-line no-param-reassign
-    st.departures.push(pilot);
   },
   removeDeparture(st, departure) {
     // eslint-disable-next-line no-param-reassign

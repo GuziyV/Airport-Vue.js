@@ -3,24 +3,33 @@
   <div class="col-4 createCrew">
     <h3>Create departure:</h3>
       <div class="form-group">
-        <input  v-model="newFlight.departureFrom" type="text" class="form-control" placeholder="Departure from" required="required" />
+        <input  v-model="newDeparture.timeOfDeparture" type="text" class="form-control" placeholder="Time of departure" required="required" />
       </div>
-      <div class="form-group">
-        <input  v-model="newFlight.destination" type="text" class="form-control" placeholder="Destination" required="required" />
-      </div>
-      <div class="form-group">
-        <input  v-model="newFlight.timeOfDeparture" type="text" class="form-control" placeholder="Time of departure" required="required" />
-      </div>
-      <div class="form-group">
-        <input  v-model="newFlight.arrivalTime" type="text" class="form-control" placeholder="Arrival Time" required="required" />
-      </div>
-      <div class="form-group">
-        <input  v-model="newFlight.numberOfTickets" type="number" class="form-control" placeholder="Number of tickets" required="required" />
-      </div>
-      <div class="form-group">
-        <input  v-model="newFlight.pricePerTicket" type="number" class="form-control" placeholder="Price per ticket" required="required" />
-      </div>
-      <button class="btn btn-primary btn-block" v-on:click="addFlight(parseFlight())">
+      <v-select v-model="newDeparture.flight"
+                  class="category-select"
+                  :options="flights"
+                  label="destination"
+                  type="text"
+                  placeholder="Choose a flight"
+                  required="required">
+        </v-select>
+        <v-select v-model="newDeparture.crew"
+                  class="category-select"
+                  :options="crews.map((p) => p.pilot )"
+                  label="name"
+                  type="text"
+                  placeholder="Choose a crew"
+                  required="required">
+        </v-select>
+        <v-select v-model="newDeparture.plane"
+                  class="category-select"
+                  :options="planes.map((p) => p.planeType )"
+                  label="model"
+                  type="text"
+                  placeholder="Choose a plane"
+                  required="required">
+        </v-select>
+      <button class="btn btn-primary btn-block" v-on:click="addDeparture(newDeparture)">
         Create
       </button>
   </div>
@@ -48,45 +57,32 @@ import { mapState, mapActions } from 'vuex';
 
 function getInitialData() {
   return {
-    newFlight: {
-        departureFrom: '',
-        destination: '',
+    newDeparture: {
         timeOfDeparture: '',
-        arrivalTime: '',
-        pricePerTicket: '',
-        numberOfTickets: '',
+        crew: '',
+        flight: '',
+        plane: '',
     },
   };
 }
 
 export default {
-  name: 'flights',
+  name: 'departures',
   data() {
     return getInitialData();
   },
   methods: {
-    ...mapActions('flights', ['addFlight', 'removeFlight']),
-    parseFlight() {
-      const tickets = [];
-      for(let i = 0; i < this.newFlight.numberOfTickets; i++) {
-        tickets.push({
-          price: this.newFlight.pricePerTicket,
-        });
-      }
-      return {
-        departureFrom: this.newFlight.departureFrom,
-        timeOfDeparture: this.newFlight.timeOfDeparture,
-        destination: this.newFlight.destination,
-        arrivalTime: this.newFlight.arrivalTime,
-        tickets: tickets,
-      }
-    }
+    ...mapActions('departures', ['addDeparture', 'removeDeparture']),
   },
   computed: mapState({
     ...mapState('flights', ['flights']),
+    ...mapState('crews', ['crews']),
+    ...mapState('planes', ['planes']),
   }),
   created() {
     this.$store.dispatch('flights/getAllFlights');
+    this.$store.dispatch('planes/getAllPlanes');
+    this.$store.dispatch('crews/getAllCrews');
   }
 };
 </script>
@@ -107,6 +103,10 @@ export default {
   top: 5px;
   right: 5px;
   cursor: pointer;
+}
+
+.dropdown {
+  padding-bottom: 10px;
 }
 
 </style>
