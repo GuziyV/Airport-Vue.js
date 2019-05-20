@@ -63,10 +63,8 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (store.state.user.isLoggedIn) {
     if (store.state.user.currentUser.role === 'User' && to.name !== 'buyTickets') {
-      console.log(to.name);
       next('/buyTickets');
     } else if (to.name === 'signin' || to.name === 'signup') {
-      console.log(store.state.user.role);
       if (store.store.state.user.currentUser.role === 'User') {
         next('/buyTickets');
       } else {
