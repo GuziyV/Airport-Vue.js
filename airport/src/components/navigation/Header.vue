@@ -15,6 +15,11 @@
           Departures
         </router-link>
       </div>
+      <div v-else>
+    <router-link to="/signin">
+          Lviv airport
+        </router-link>
+    </div>
     </div>
     <div v-else>
     <router-link to="/signin">

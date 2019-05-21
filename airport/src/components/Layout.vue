@@ -1,8 +1,8 @@
 <template>
   <div class="Page">
     <Header></Header>
-
-    <router-view></router-view>
+    <div class="bg-image"></div>
+    <router-view class="content"></router-view>
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -22,6 +22,5 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style>
 </style>

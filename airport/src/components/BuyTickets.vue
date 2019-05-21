@@ -1,5 +1,6 @@
 <template>
 <div class="Login-form">
+    <h3>Select a Flight</h3>
     <div class="form-group">
         <input  v-model="ticketForm.departureFrom" type="text" class="form-control" placeholder="destination" required="required" />
     </div>
@@ -7,7 +8,7 @@
         <input  v-model="ticketForm.destination" type="text" class="form-control" placeholder="destination" required="required" />
     </div>
     <div class="form-group">
-        <datepicker v-on:changedMonth="ticketForm.date" v-model="ticketForm.date"></datepicker>
+        <datepicker v-model="ticketForm.date" placeholder="select date"></datepicker>
     </div>
     <button class="btn btn-primary btn-block" v-on:click="search">
         Search
@@ -17,7 +18,7 @@
         From {{ flight.departureFrom }} to {{ flight.destination}}
       </div>
       <div>
-        Time: {{ flight.timeOfDeparture }} to {{ flight.arrivalTime}}
+        Time: {{ new Date(flight.timeOfDeparture).toLocaleString() }} to {{ new Date(flight.arrivalTime).toLocaleString() }}
       </div>
       <div>
         Number of tickets: {{ flight.tickets.length }} ({{ flight.tickets[0].price }}$)
@@ -57,9 +58,10 @@ export default {
   },
   methods: {
    search() {
-      const url = `/products/search?deaprtureFrom=${ticketForm.departureFrom}&destination=${ticketForm.destination}&date=${ticketForm.date}`;
-      axios.get(url).then((flights) => {
-        this.flights = flights;
+      const url = `/flights/search?departureFrom=${this.ticketForm.departureFrom}&destination=${this.ticketForm.destination}&date=${this.ticketForm.date.toJSON()}`;
+      console.log(url);
+      axios.get(url).then((responce) => {
+        this.flights = responce.data;
       });
    },
    printFlight(flight) {

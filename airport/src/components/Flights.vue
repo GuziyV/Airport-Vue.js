@@ -31,7 +31,7 @@
         From {{ flight.departureFrom }} to {{ flight.destination}}
       </div>
       <div>
-        Time: {{ flight.timeOfDeparture }} to {{ flight.arrivalTime}}
+        Time: {{ new Date(flight.timeOfDeparture).toLocaleString() }} to {{ new Date(flight.arrivalTime).toLocaleString() }}
       </div>
       <div>
         Number of tickets: {{ flight.tickets.length }} ({{ flight.tickets[0].price }}$)
