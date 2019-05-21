@@ -118,7 +118,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 .Crew .stewardess {
   border-bottom: 1px solid black;
@@ -131,7 +131,7 @@ export default {
   justify-content: space-around;
   margin: 10px;
   padding: 10px;
-  background-color:seashell;
+  background-color:#f4f2d9;
 }
 
 .Crew .crew .cross {
@@ -139,6 +139,12 @@ export default {
   top: 5px;
   right: 5px;
   cursor: pointer;
+}
+
+.createCrew {
+   padding: 20px 50px;
+   border-radius: 10px;
+   background-color: #f4f2d9;
 }
 
 </style>

@@ -95,7 +95,7 @@ export default {
   justify-content: space-around;
   margin: 10px;
   padding: 10px;
-  background-color:seashell;
+  background-color:#f4f2d9;
 }
 
 .Crews .crew .cross {
@@ -107,6 +107,10 @@ export default {
 
 .dropdown {
   padding-bottom: 10px;
+}
+
+.category-select {
+  background-color: white;
 }
 
 </style>

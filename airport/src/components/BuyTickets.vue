@@ -82,5 +82,8 @@ export default {
   max-width: 450px;
   margin: 0 auto;
   margin-top: 80px;
+  background-color: #f4f2d9;
+  padding: 20px 50px;
+  border-radius: 10px;
 }
 </style>
